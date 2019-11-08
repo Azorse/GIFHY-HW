@@ -62,29 +62,30 @@
             var startingBands = ['Depeche Mode', 'Echo and the Bunnymen', 'New Order', 'Flock of Seagulls', 'Tears for Fears'];
 
             $.each(startingBands, function(i, val) {
-                $('#startingButtons').attr('data-band', startingBands).append(`<button class="btn btn-secondary">${startingBands[i]}</button>`)
+                $('#startingButtons').attr({'data-band': startingBands[i]}).append(`<button class="btn btn-secondary">${startingBands[i]}</button>`)
             });
 
             
             $('#submit').on('click', function() {
-                
+                $('#newGifs').empty();
                 var newBand = [];
                 var userInput = $('#band').val()
                 newBand.push(userInput);
                 console.log(userInput);
                 console.log(newBand);
-
+                
                 $.each(newBand, function(i, val) {
-                    $('#newButtons').attr('data-band', userInput).append(`<button class="btn btn-secondary">${userInput}</button>`)
+                    $('#newButtons').attr({'data-band': userInput}).append(`<button class="btn btn-secondary">${userInput}</button>`)
                 });
 
             });
 
-            $('button').on('click', function() {
+            $('#startingButtons').on('click', function() {
                 var band = $(this).attr("data-band");
+                console.log(band)
 
                 var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-                band + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
+                band + "&api_key=fFByprtufVI2weoaxWgbrIcP2PJfZIa7&limit=10";
 
                 $.ajax({
                     url: queryURL,
@@ -99,7 +100,7 @@
                             var gifDiv = $('<div>');
                             var rating = results[i].rating;
                             var p = $('<p>').text(`Rating: ${rating}`);
-                            var bandImage = $('<img>');
+                            var bandImage = $('<img>').addClass('gif');
 
                             bandImage.attr("src", results[i].images.fixed_height.url);
 
@@ -114,6 +115,53 @@
             
             });
 
+            $('#newButtons').on('click', function() {
+                var band = $(this).attr("data-band");
+
+                var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+                band + "&api_key=fFByprtufVI2weoaxWgbrIcP2PJfZIa7&limit=10";
+
+                $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                })
+                    .then(function(response) {
+                        var results = response.data;
+
+                        for (var i = 0; i < results.length; i++) {
+                            if (results[i].rating !== "r") {
+                                
+                            var gifDiv = $('<div>');
+                            var rating = results[i].rating;
+                            var p = $('<p>').text(`Rating: ${rating}`);
+                            var bandImage = $('<img>').addClass('gif');
+
+                            bandImage.attr("src", results[i].images.fixed_height.url);
+
+                            gifDiv.append(bandImage).attr('data-state', 'still');
+                            gifDiv.append(p);
+                            
+
+                            $('#newGifs').prepend(gifDiv);
+                            
+                          }
+                      }
+                  })
+            
+            });
+
+            // $(".gif").on("click", function() {
+               
+            //     var state = $(this).attr("data-state");
+
+            //     if (state === "still") {
+            //         $(this).attr("src", $(this).attr("data-animate"));
+            //         $(this).attr("data-state", "animate");
+            //     } else {
+            //         $(this).attr("src", $(this).attr("data-still"));
+            //         $(this).attr("data-state", "still");
+            //     }
+            // });
 
         });
 
