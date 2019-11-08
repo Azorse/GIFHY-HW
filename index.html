@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <title>GIFTastic</title>
+    <style>
+        button {
+            padding: 5px;
+            margin: 10px 3px;
+        }
+        .jumbotron {
+            background-color: #cccccc;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            text-align: center;
+        }
+
+        #userSearch {
+            padding: 30px;
+            margin: 10px;
+            float: right;
+        }
+        #submit {
+            margin:10px 0px;
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+    <div id="container">
+        <div class="jumbotron">
+            <h1 class="display-4">GIF Finder</h1>
+        </div>
+        <div id="newButtons"></div>
+        <div id="newGifs"></div>
+        
+        
+        <div id="userSearch">
+            <p>Search for your Favorite Band</p>
+            <input type="text" class="search" id="band"><br>
+            <button class="search" id="submit">Search</button>
+        </div>
+
+    </div>
+    <script>
+    
+        var musicans = ['Depeche Mode', 'Echo and the Bunnymen', 'New Order', 'Flock of Seagulls', 'Tears for Fears'];
+
+        var newBand = [];
+        // var band = $('<button>').attr('class', 'btn btn-secondary')
+
+        $('document').ready(function (){
+
+            // $.each(musicans, function(i ,val) {
+            //     $('#newGifs').append(`<button>${val}</button>`).attr({class: 'btn btn-secondary', 'data-musician': val})
+            // })
+            
+            $('#submit').on('click', function() {
+                var userInput = $('#band').val()
+                newBand.push(userInput);
+                console.log(userInput);
+                console.log(newBand);
+
+                $.each(newBand, function(i ,val) {
+                $('#newButtons').append(`<button>${userInput}</button>`).attr({class: 'btn btn-secondary', 'data-musician': userInput})
+                });
+                // for (var i = 0; i < newBand.length; i++) {
+                //     $('#newButtons').append(`<button>${userInput}</button>`).attr({class: 'btn btn-secondary', 'data-musician': userInput})
+                // }
+                
+
+            });
+
+        });
+
+
+
+       
+
+
+    </script>
+</body>
+</html>
