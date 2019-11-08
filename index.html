@@ -13,6 +13,7 @@
     <title>GIFTastic</title>
     <style>
         button {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
             padding: 5px;
             margin: 10px 3px;
         }
@@ -56,7 +57,6 @@
     
         var musicans = ['Depeche Mode', 'Echo and the Bunnymen', 'New Order', 'Flock of Seagulls', 'Tears for Fears'];
 
-        var newBand = [];
         // var band = $('<button>').attr('class', 'btn btn-secondary')
 
         $('document').ready(function (){
@@ -66,14 +66,19 @@
             // })
             
             $('#submit').on('click', function() {
+                var newBand = [];
                 var userInput = $('#band').val()
                 newBand.push(userInput);
                 console.log(userInput);
                 console.log(newBand);
 
                 $.each(newBand, function(i ,val) {
-                $('#newButtons').append(`<button>${userInput}</button>`).attr({class: 'btn btn-secondary', 'data-musician': userInput})
+                $('#newButtons').attr('data-musician', userInput).append(`<button class="btn btn-secondary">${userInput}</button>`)
                 });
+
+                // $.each(newBand, function(i ,val) {
+                // $('#newButtons').append(userInput).attr({class: 'btn btn-secondary', 'data-musician': userInput})
+                // });
                 // for (var i = 0; i < newBand.length; i++) {
                 //     $('#newButtons').append(`<button>${userInput}</button>`).attr({class: 'btn btn-secondary', 'data-musician': userInput})
                 // }
