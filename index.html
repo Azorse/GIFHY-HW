@@ -58,13 +58,13 @@
     
     //var musicans = ['Depeche Mode', 'Echo and the Bunnymen', 'New Order', 'Flock of Seagulls', 'Tears for Fears'];
 
-        $('document').ready(function (){
+        $(document).ready(function (){
             var startingBands = ['Depeche Mode', 'Echo and the Bunnymen', 'New Order', 'Flock of Seagulls', 'Tears for Fears'];
 
             $.each(startingBands, function(i, val) {
-                $('#startingButtons').attr({'data-band': startingBands[i]}).append(`<button class="btn btn-secondary">${startingBands[i]}</button>`)
+                $('#startingButtons').append(`<button class="btn btn-secondary" data-band="${startingBands[i]}">${startingBands[i]}</button>`)
             });
-
+            
             
             $('#submit').on('click', function() {
                 $('#newGifs').empty();
