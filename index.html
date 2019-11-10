@@ -13,6 +13,7 @@
 
     <title>GIFTastic</title>
     <style>
+
         button {
             font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
             padding: 5px;
@@ -33,7 +34,6 @@
             margin:10px 0px;
         }
 
-
     </style>
 
 </head>
@@ -50,126 +50,12 @@
             <p>Search for your Favorite Band</p>
             <input type="text" class="search" id="band"><br>
             <button class="search" id="submit">Search</button>
+            <button class="reset" id="clear">Clear</button>
         </div>
 
         <div id="newGifs"></div>
     </div>
-    <script>
-    
-    //var musicans = ['Depeche Mode', 'Echo and the Bunnymen', 'New Order', 'Flock of Seagulls', 'Tears for Fears'];
-
-        $(document).ready(function (){
-            var startingBands = ['Depeche Mode', 'Echo and the Bunnymen', 'New Order', 'Flock of Seagulls', 'Tears for Fears'];
-
-            $.each(startingBands, function(i, val) {
-                $('#startingButtons').append(`<button class="btn btn-secondary" data-band="${startingBands[i]}">${startingBands[i]}</button>`)
-            });
-            
-            
-            $('#submit').on('click', function() {
-                $('#newGifs').empty();
-                var newBand = [];
-                var userInput = $('#band').val()
-                newBand.push(userInput);
-                console.log(userInput);
-                console.log(newBand);
-                
-                $.each(newBand, function(i, val) {
-                    $('#newButtons').attr({'data-band': userInput}).append(`<button class="btn btn-secondary">${userInput}</button>`)
-                });
-
-            });
-
-            $('#startingButtons').on('click', function() {
-                var band = $(this).attr("data-band");
-                console.log(band)
-
-                var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-                band + "&api_key=fFByprtufVI2weoaxWgbrIcP2PJfZIa7&limit=10";
-
-                $.ajax({
-                    url: queryURL,
-                    method: "GET"
-                })
-                    .then(function(response) {
-                        var results = response.data;
-
-                        for (var i = 0; i < results.length; i++) {
-                            if (results[i].rating !== "r") {
-                                
-                            var gifDiv = $('<div>');
-                            var rating = results[i].rating;
-                            var p = $('<p>').text(`Rating: ${rating}`);
-                            var bandImage = $('<img>').addClass('gif');
-
-                            bandImage.attr("src", results[i].images.fixed_height.url);
-
-                            gifDiv.append(p);
-                            gifDiv.append(bandImage);
-
-                            $('#newGifs').prepend(gifDiv);
-                            
-                          }
-                      }
-                  })
-            
-            });
-
-            $('#newButtons').on('click', function() {
-                var band = $(this).attr("data-band");
-
-                var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-                band + "&api_key=fFByprtufVI2weoaxWgbrIcP2PJfZIa7&limit=10";
-
-                $.ajax({
-                    url: queryURL,
-                    method: "GET"
-                })
-                    .then(function(response) {
-                        var results = response.data;
-
-                        for (var i = 0; i < results.length; i++) {
-                            if (results[i].rating !== "r") {
-                                
-                            var gifDiv = $('<div>');
-                            var rating = results[i].rating;
-                            var p = $('<p>').text(`Rating: ${rating}`);
-                            var bandImage = $('<img>').addClass('gif');
-
-                            bandImage.attr("src", results[i].images.fixed_height.url);
-
-                            gifDiv.append(bandImage).attr('data-state', 'still');
-                            gifDiv.append(p);
-                            
-
-                            $('#newGifs').prepend(gifDiv);
-                            
-                          }
-                      }
-                  })
-            
-            });
-
-            // $(".gif").on("click", function() {
-               
-            //     var state = $(this).attr("data-state");
-
-            //     if (state === "still") {
-            //         $(this).attr("src", $(this).attr("data-animate"));
-            //         $(this).attr("data-state", "animate");
-            //     } else {
-            //         $(this).attr("src", $(this).attr("data-still"));
-            //         $(this).attr("data-state", "still");
-            //     }
-            // });
-
-        });
-
-
-
-       
-
-
-    </script>
+    <script type="text/javascript" src="assets/app.js"></script>
+ 
 </body>
 </html>
